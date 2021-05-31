@@ -19,6 +19,8 @@ To get a local copy run the command:
 
 on your command-line.
 
+**Note:** Check you are on development branch before running next commands.
+
 ### Prerequisites
 
 - GIT
@@ -43,7 +45,7 @@ To install Ruby go to this [page](https://www.ruby-lang.org/en/) and follow the 
 - You will see the table with the Scores on it.
 
 **Note:**
-There are two sample cases in the root folder, to run them type enter 'test.txt' or 'test0.txt' as file name.
+There are three sample cases in the root folder, to run them enter 'test.txt', 'test0.txt' or 'text1.txt' as file name.
 
 ### Tests
 
