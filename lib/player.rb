@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Playes Methods
+# Player Class
 class Player
   def initialize(name)
     @player = {}
@@ -13,10 +13,6 @@ class Player
   # Name of the player
   def name
     @player[:name]
-  end
-
-  def set_attempts
-
   end
 
   # Define value of last shot

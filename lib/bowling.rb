@@ -2,7 +2,7 @@
 
 require_relative './player'
 
-# Bowling Methods
+# Bowling Class
 class Bowling
   def initialize
     @arr = []
@@ -45,7 +45,7 @@ class Bowling
 
   # Error
   def error(players, arr, names_arr)
-    players.each_with_index do |player, i|
+    players.each do |player|
       scores = player.set_scores(arr, names_arr.length, player.name)
       last_turn = scores[-1]
       if scores.length > 12 || last_turn.length > 3 || scores[0...-2].any? { |i| i.length >= 3 }

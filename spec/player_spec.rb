@@ -102,7 +102,6 @@ describe Player do
     end
 
     describe 'worst case game' do
-
       describe 'set scores perfect game' do
         it 'checks that the array of scores is not null' do
           expect(@second_player.set_scores(@arr, @names_arr.size, @second_player.name)).not_to be_empty || nill
