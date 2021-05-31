@@ -5,14 +5,15 @@
 require 'spec_helper'
 require_relative '../lib/player'
 require_relative '../lib/bowling'
+require_relative '../lib/input'
 
 describe Player do
   describe 'average game' do
     before do
       file = 'test.txt'
-      @bowling = Bowling.new
-      @arr = @bowling.get_file_info(file)[0]
-      @names_arr = @bowling.get_file_info(file)[1].uniq
+      @input = Input.new
+      @arr = @input.get_file_info(file)[0]
+      @names_arr = @input.get_file_info(file)[1].uniq
 
       @name = @names_arr.uniq.first
       @first_player = Player.new(@name)
@@ -56,8 +57,9 @@ describe Player do
     before do
       @bowling = Bowling.new
       file = 'test0.txt'
-      @arr = @bowling.get_file_info(file)[0]
-      @names_arr = @bowling.get_file_info(file)[1]
+      @input = Input.new
+      @arr = @input.get_file_info(file)[0]
+      @names_arr = @input.get_file_info(file)[1]
 
       @name1 = @names_arr.first
       @name2 = @names_arr[1]
