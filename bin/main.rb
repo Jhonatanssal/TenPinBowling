@@ -5,5 +5,4 @@ require_relative '../lib/bowling'
 
 a = Bowling.new
 
-a.file_input
-a.frame
+a.play
