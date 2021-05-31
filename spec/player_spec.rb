@@ -12,7 +12,7 @@ describe Player do
       file = 'test.txt'
       @bowling = Bowling.new
       @arr = @bowling.get_file_info(file)[0]
-      @names_arr = @bowling.get_file_info(file)[1]
+      @names_arr = @bowling.get_file_info(file)[1].uniq
 
       @name = @names_arr.uniq.first
       @first_player = Player.new(@name)
@@ -27,25 +27,25 @@ describe Player do
 
     describe 'set scores' do
       it 'checks that the array of scores is not null' do
-        expect(@first_player.set_scores(@arr, @names_arr.uniq.size)).not_to be_empty || nill
+        expect(@first_player.set_scores(@arr, @names_arr.size, @first_player.name)).not_to be_empty || nill
       end
 
       it 'returns an array of scores per turn for each player' do
         scores_array = [['10'], %w[7 3], %w[9 0], ['10'], %w[0 8], %w[8 2], %w[F 6], ['10'], ['10'],
                         %w[10 8 1]]
 
-        expect(@first_player.set_scores(@arr, @number_of_players)).to eq(scores_array)
+        expect(@first_player.set_scores(@arr, @number_of_players, @first_player.name)).to eq(scores_array)
       end
     end
 
     describe 'total scores' do
       it 'checks array returned by method is not nill' do
-        scores_array = @first_player.set_scores(@arr, @number_of_players)
+        scores_array = @first_player.set_scores(@arr, @number_of_players, @first_player.name)
         expect(@first_player.total_scores(scores_array)).not_to be_empty || null
       end
 
       it 'checks array returned by method is not nill' do
-        scores_array = @first_player.set_scores(@arr, @number_of_players)
+        scores_array = @first_player.set_scores(@arr, @number_of_players, @first_player.name)
         totals = [20, 39, 48, 66, 74, 84, 90, 120, 148, 167]
         expect(@first_player.total_scores(scores_array)).to eq(totals)
       end
@@ -59,8 +59,8 @@ describe Player do
       @arr = @bowling.get_file_info(file)[0]
       @names_arr = @bowling.get_file_info(file)[1]
 
-      @name1 = @names_arr.uniq.first
-      @name2 = @names_arr.uniq[1]
+      @name1 = @names_arr.first
+      @name2 = @names_arr[1]
       @first_player = Player.new(@name1)
       @second_player = Player.new(@name2)
       @number_of_players = @names_arr.uniq.size
@@ -75,25 +75,25 @@ describe Player do
     describe 'perfect game' do
       describe 'set scores perfect game' do
         it 'checks that the array of scores is not null' do
-          expect(@first_player.set_scores(@arr, @names_arr.uniq.size)).not_to be_empty || nill
+          expect(@first_player.set_scores(@arr, @names_arr.size, @first_player.name)).not_to be_empty || nill
         end
 
         it 'returns an array of scores per turn for first player' do
           scores_array = [['10'], ['10'], ['10'], ['10'], ['10'], ['10'], ['10'], ['10'], ['10'], %w[10 10 10]]
 
-          expect(@first_player.set_scores(@arr, @number_of_players)).to eq(scores_array)
+          expect(@first_player.set_scores(@arr, @number_of_players, @first_player.name)).to eq(scores_array)
         end
       end
 
       describe 'total scores perfect game' do
         it 'checks array returned by method is not nill' do
-          scores_array = @first_player.set_scores(@arr, @number_of_players)
+          scores_array = @first_player.set_scores(@arr, @number_of_players, @first_player.name)
 
           expect(@first_player.total_scores(scores_array)).not_to be_empty || null
         end
 
         it 'checks array returned by method is not nill' do
-          scores_array = @first_player.set_scores(@arr, @number_of_players)
+          scores_array = @first_player.set_scores(@arr, @number_of_players, @first_player.name)
           totals = [30, 60, 90, 120, 150, 180, 210, 240, 270, 300]
 
           expect(@first_player.total_scores(scores_array)).to eq(totals)
@@ -102,28 +102,29 @@ describe Player do
     end
 
     describe 'worst case game' do
+
       describe 'set scores perfect game' do
         it 'checks that the array of scores is not null' do
-          expect(@second_player.set_scores(@arr, @names_arr.uniq.size)).not_to be_empty || nill
+          expect(@second_player.set_scores(@arr, @names_arr.size, @second_player.name)).not_to be_empty || nill
         end
 
         it 'returns an array of scores per turn for first player' do
           scores_array = [%w[0 0], %w[0 0], %w[0 0], %w[0 0], %w[0 0], %w[0 0], %w[0 0],
                           %w[0 0], %w[0 0], %w[0 0]]
 
-          expect(@second_player.set_scores(@arr, @number_of_players)).to eq(scores_array)
+          expect(@second_player.set_scores(@arr, @number_of_players, @second_player.name)).to eq(scores_array)
         end
       end
 
       describe 'total scores perfect game' do
         it 'checks array returned by method is not nill' do
-          scores_array = @second_player.set_scores(@arr, @number_of_players)
+          scores_array = @second_player.set_scores(@arr, @number_of_players, @second_player.name)
 
           expect(@second_player.total_scores(scores_array)).not_to be_empty || null
         end
 
         it 'checks array returned by method is not nill' do
-          scores_array = @second_player.set_scores(@arr, @number_of_players)
+          scores_array = @second_player.set_scores(@arr, @number_of_players, @second_player.name)
           totals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
           expect(@first_player.total_scores(scores_array)).to eq(totals)
