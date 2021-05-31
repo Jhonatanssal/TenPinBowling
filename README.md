@@ -1,4 +1,4 @@
-# Bowling Scores Chalenge
+# Bowling Scores Challenge
 Jobsity Coding Challenge
 
 
