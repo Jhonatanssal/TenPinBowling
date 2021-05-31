@@ -5,6 +5,7 @@ class Player
   def initialize(name)
     @player = {}
     @player[:name] = name
+    @player[:attempts] = 0
     @player[:pinfalls] = []
     @player[:totals] = []
   end
@@ -12,6 +13,10 @@ class Player
   # Name of the player
   def name
     @player[:name]
+  end
+
+  def set_attempts
+
   end
 
   # Define value of last shot
@@ -23,27 +28,29 @@ class Player
   end
 
   # Set scores array for every player by turn
-  def set_scores(arr, number_of_players)
-    len = number_of_players > 1 ? arr.length - 1 : arr.length
+  def set_scores(arr, number_of_players, name)
+    len = arr.length
+    name = name.upcase
     temparr = []
     i = 0
 
-    while i < len
-      if arr[i][0] == @player[:name] && arr[i + 1][0] == @player[:name]
-        if arr[i][1].to_i != 10
-          temparr << [arr[i][1], arr[i + 1][1]]
-          i += 2
-        else
+    while i < len - 1
+      if arr[i][0].upcase == name && arr[i + 1][0].upcase == name
+        if arr[i][1].to_i == 10
           temparr << [arr[i][1]]
           i += 1
+        else
+          temparr << [arr[i][1], arr[i + 1][1]]
+          i += 2
         end
-      elsif arr[i][0] == @player[:name] && arr[i + 1][0] != @player[:name]
+      elsif arr[i][0].upcase == name && arr[i + 1][0].upcase != name
         temparr << [arr[i][1]]
         i += 1
       else
         i += 1
       end
     end
+    temparr << [arr.last[1]] if number_of_players == 1
 
     len2 = temparr.length
     first_nine = temparr[0..8]

@@ -44,11 +44,11 @@ class Bowling
   end
 
   # Error
-  def error(players)
+  def error(players, arr, names_arr)
     players.each_with_index do |player, i|
-      scores = player.set_scores(@arr, @names_arr.length)
+      scores = player.set_scores(arr, names_arr.length, player.name)
       last_turn = scores[-1]
-      if scores[0...-1].length != 9 || last_turn.length > 3 || scores[i].length > 2
+      if scores.length > 12 || last_turn.length > 3 || scores[0...-2].any? { |i| i.length >= 3 }
         p 'BAD INPUT: Please check your file.'
         exit
       elsif last_turn.length == 3 && (last_turn[0].to_i != 10 && last_turn[0].to_i + last_turn[1].to_i != 10)
@@ -62,10 +62,9 @@ class Bowling
   def create_players(names_arr)
     players = []
     names_arr.length.times do |n|
-      player = Player.new(@names_arr[n])
+      player = Player.new(names_arr[n])
       players << player
     end
-    error(players)
     players
   end
 
@@ -105,7 +104,7 @@ class Bowling
   # Prints first 9 pinfalls line on the frame
   def frame_pinfalls(player)
     print "Pinfalls\t"
-    scores = player.set_scores(@arr, @names_arr.length)
+    scores = player.set_scores(@arr, @names_arr.length, player.name)
     scores[0...-1].each do |s|
       if s.length > 1
         put_spare_sign(s)
@@ -120,13 +119,14 @@ class Bowling
   # Prints scores line on the frame
   def frame_scores(player)
     print "Score\t\t"
-    player.total_scores(player.set_scores(@arr, @names_arr.length)).each { |s| print "#{s}\t" }
+    player.total_scores(player.set_scores(@arr, @names_arr.length, player.name)).each { |s| print "#{s}\t" }
     puts
   end
 
   # Prints entire frame
   def frame
     create_players(@names_arr)
+    error(@players, @arr, @names_arr)
 
     puts "Frame\t\t1\t2\t3\t4\t5\t6\t7\t8\t9\t10\t"
     @players.each do |player|
