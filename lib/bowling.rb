@@ -47,8 +47,12 @@ class Bowling
   def error(players)
     players.each_with_index do |player, i|
       scores = player.set_scores(@arr, @names_arr.length)
-      if scores[0...-1].length != 9 || scores[-1].length > 3 || scores[i].length > 2
+      last_turn = scores[-1]
+      if scores[0...-1].length != 9 || last_turn.length > 3 || scores[i].length > 2
         p 'BAD INPUT: Please check your file.'
+        exit
+      elsif last_turn.length == 3 && (last_turn[0].to_i != 10 && last_turn[0].to_i + last_turn[1].to_i != 10)
+        p 'BAD INPUT (FINAL TURN DOES NOT FOLLOW THE RULES): Please check your file.'
         exit
       end
     end
@@ -89,6 +93,9 @@ class Bowling
     arr.length.times do |t|
       if arr[t].to_i == 10
         print 'X   '
+      elsif arr[t].to_i + arr[t + 1].to_i == 10
+        print "#{arr[t]}   /   #{arr[t + 2]}"
+        break
       else
         print "#{arr[t]}   "
       end

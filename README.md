@@ -42,6 +42,13 @@ To install Ruby go to this [page](https://www.ruby-lang.org/en/) and follow the 
 - Enter that name with its extension and hit enter.
 - You will see the table with the Scores on it.
 
+**Note:**
+There are two sample cases in the root folder, to run them type enter 'test.txt' or 'test0.txt' as file name.
+
+### Tests
+
+To run all tests run the command `rspec` in your command-line from the root folder.
+
 
 👤 **Jhonatan Sarrazola**
 
