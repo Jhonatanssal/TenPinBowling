@@ -1,61 +1,25 @@
 # frozen_string_literal: true
 
 require_relative './player'
+require_relative './errors'
+require_relative './input'
 
 # Bowling Class
 class Bowling
-  def initialize
+  def initialize(file = '')
     @arr = []
     @names_arr = []
     @players = []
-    @file = ''
-  end
-
-  # Gets the name of the file to read
-  def file_input
-    puts 'What is the name of the file to read?'
-    @file = gets.chomp
-  end
-
-  # Gets the info of the file and saves it inside two arrays
-  def get_file_info(file = '')
-    @file = file if file != ''
-    File.open(@file, 'r') do |f|
-      arr = []
-      names_arr = []
-      f.each_line do |line|
-        val = line.split(' ')[1].to_i
-        if val > 10 || val.negative?
-          p "ERROR: Please check your line '#{line[0..-2]}'"
-          exit
-        end
-
-        arr << line.split(' ')
-        names_arr << line.split(' ')[0]
-      end
-      [arr, names_arr.uniq]
-    end
+    @file = file
+    @error_messages = Errors.new
+    @input = Input.new
   end
 
   # Saves file info in class variables
   def define_arrays
-    @arr = get_file_info[0]
-    @names_arr = get_file_info[1]
-  end
-
-  # Error
-  def error(players, arr, names_arr)
-    players.each do |player|
-      scores = player.set_scores(arr, names_arr.length, player.name)
-      last_turn = scores[-1]
-      if scores.length > 12 || last_turn.length > 3 || scores[0...-2].any? { |i| i.length >= 3 }
-        p 'BAD INPUT: Please check your file.'
-        exit
-      elsif last_turn.length == 3 && (last_turn[0].to_i != 10 && last_turn[0].to_i + last_turn[1].to_i != 10)
-        p 'BAD INPUT (FINAL TURN DOES NOT FOLLOW THE RULES): Please check your file.'
-        exit
-      end
-    end
+    file_input = @input.get_file_info(@file)
+    @arr = file_input[0]
+    @names_arr = file_input[1]
   end
 
   # Create players from Player class
@@ -126,7 +90,7 @@ class Bowling
   # Prints entire frame
   def frame
     create_players(@names_arr)
-    error(@players, @arr, @names_arr)
+    @error_messages.turn_errors(@players, @arr, @names_arr)
 
     puts "Frame\t\t1\t2\t3\t4\t5\t6\t7\t8\t9\t10\t"
     @players.each do |player|
@@ -138,8 +102,6 @@ class Bowling
 
   # Prints frame with all of the Information
   def play
-    file_input
-    get_file_info
     define_arrays
     save_players
     frame

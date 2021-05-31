@@ -46,7 +46,7 @@ class Player
         i += 1
       end
     end
-    temparr << [arr.last[1]] if number_of_players == 1
+    temparr << [arr.last[1]] if len <= 15
 
     len2 = temparr.length
     first_nine = temparr[0..8]

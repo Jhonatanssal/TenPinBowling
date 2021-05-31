@@ -3,6 +3,10 @@
 require_relative '../lib/player'
 require_relative '../lib/bowling'
 
-a = Bowling.new
+# Get input from user
+puts 'What is the name of the file to read?'
+file = gets.chomp
 
+# Run Bowling class
+a = Bowling.new(file)
 a.play
