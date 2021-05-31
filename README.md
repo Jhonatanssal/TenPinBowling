@@ -45,7 +45,7 @@ To install Ruby go to this [page](https://www.ruby-lang.org/en/) and follow the 
 - You will see the table with the Scores on it.
 
 **Note:**
-There are three sample cases in the root folder, to run them enter 'test.txt', 'test0.txt' or 'text1.txt' as file name.
+There are three sample cases in the root folder, to run them enter 'test.txt', 'test0.txt' or 'text1.txt' as file name (make sure to save files you want to test on root folder).
 
 ### Tests
 
